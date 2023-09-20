@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://cneieeiwl1g4p"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_30tpj"]
+[ext_resource type="Texture2D" uid="uid://bqj5bd2612ufp" path="res://darkPurple.png" id="1_ido1q"]
+[ext_resource type="PackedScene" uid="uid://d00ro2mx6gqlk" path="res://player.tscn" id="2_8j480"]
+[ext_resource type="PackedScene" uid="uid://d3gfyakipnaqb" path="res://maze.tscn" id="4_1tqw7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a4jto"]
+font_size = 32
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_30tpj")
+
+[node name="Graphics" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Graphics"]
+layer = -10
+
+[node name="Background" type="TextureRect" parent="Graphics/CanvasLayer"]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ido1q")
+stretch_mode = 1
+
+[node name="StartLabel" type="Label" parent="Graphics"]
+z_index = -5
+offset_left = 494.0
+offset_top = 105.0
+offset_right = 589.0
+offset_bottom = 153.0
+text = "START
+"
+label_settings = SubResource("LabelSettings_a4jto")
+
+[node name="EndLabel" type="Label" parent="Graphics"]
+z_index = -5
+offset_left = 1430.0
+offset_top = -40.0
+offset_right = 1525.0
+offset_bottom = 8.0
+text = "END"
+label_settings = SubResource("LabelSettings_a4jto")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Graphics"]
+offset_left = 80.0
+offset_top = 108.0
+offset_right = 317.0
+offset_bottom = 212.0
+text = "Welcome To Speedy Saucer!
+WASD or Left Joystick to Move
+Make it to the end of the maze
+without touching the walls!"
+
+[node name="Player" parent="." instance=ExtResource("2_8j480")]
+z_index = 1
+position = Vector2(540, 192)
+
+[node name="Maze" parent="." instance=ExtResource("4_1tqw7")]
+z_index = -50
+position = Vector2(543, 280)
+
+[connection signal="body_exited" from="Maze" to="." method="_on_maze_body_exited"]
